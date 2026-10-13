@@ -3,11 +3,14 @@ require_once __DIR__ . '/includes/auth.php';
 require_login('login.php');
 require_once __DIR__ . '/config/db.php';
 
+$currentUser = current_user();
 $searchQuery = '';
 if (!empty($_POST['complaintId'])) {
     $searchQuery = trim($_POST['complaintId']);
 } elseif (!empty($_GET['id'])) {
     $searchQuery = trim($_GET['id']);
+} elseif (!empty($currentUser['student_id'])) {
+    $searchQuery = trim($currentUser['student_id']);
 }
 
 $pageTitle = "Track Status - Student Help Desk";

@@ -88,3 +88,79 @@ function complaintsubmit() {
 
   return valid;
 }
+
+// 📝 Registration Form Validation Helper
+function validateRegisterForm() {
+  var nameEl    = document.getElementById("fullName");
+  var userEl    = document.getElementById("username");
+  var emailEl   = document.getElementById("email");
+  var idEl      = document.getElementById("studentId");
+  var passEl    = document.getElementById("password");
+  var confirmEl = document.getElementById("confirmPassword");
+
+  var name    = nameEl ? nameEl.value.trim() : "";
+  var user    = userEl ? userEl.value.trim() : "";
+  var email   = emailEl ? emailEl.value.trim() : "";
+  var id      = idEl ? idEl.value.trim() : "";
+  var pass    = passEl ? passEl.value : "";
+  var confirm = confirmEl ? confirmEl.value : "";
+
+  var errorFields = ["fullNameError", "usernameError", "emailError", "studentIdError", "passwordError", "confirmPasswordError"];
+  errorFields.forEach(function(eid) {
+    var el = document.getElementById(eid);
+    if (el) el.textContent = "";
+  });
+
+  var valid = true;
+  var firstBad = null;
+
+  if (!name || name.length < 3) {
+    var ne = document.getElementById("fullNameError");
+    if (ne) ne.textContent = "Name must be at least 3 characters.";
+    valid = false;
+    if (!firstBad) firstBad = nameEl;
+  }
+
+  var userRegex = /^[a-zA-Z0-9_]{3,30}$/;
+  if (!user || !userRegex.test(user)) {
+    var ue = document.getElementById("usernameError");
+    if (ue) ue.textContent = "Username must be 3-30 letters, numbers, or underscores.";
+    valid = false;
+    if (!firstBad) firstBad = userEl;
+  }
+
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    var ee = document.getElementById("emailError");
+    if (ee) ee.textContent = "Please enter a valid email address.";
+    valid = false;
+    if (!firstBad) firstBad = emailEl;
+  }
+
+  if (!id || !/^\d{12}$/.test(id)) {
+    var ie = document.getElementById("studentIdError");
+    if (ie) ie.textContent = "Student ID must be exactly 12 digits.";
+    valid = false;
+    if (!firstBad) firstBad = idEl;
+  }
+
+  if (!pass || pass.length < 6) {
+    var pe = document.getElementById("passwordError");
+    if (pe) pe.textContent = "Password must be at least 6 characters.";
+    valid = false;
+    if (!firstBad) firstBad = passEl;
+  }
+
+  if (pass !== confirm) {
+    var cpe = document.getElementById("confirmPasswordError");
+    if (cpe) cpe.textContent = "Passwords do not match.";
+    valid = false;
+    if (!firstBad) firstBad = confirmEl;
+  }
+
+  if (!valid && firstBad) {
+    firstBad.focus();
+  }
+
+  return valid;
+}

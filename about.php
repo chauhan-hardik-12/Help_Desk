@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
-require_login('login.php');
 
 $pageTitle = "About - Student Help Desk";
 $currentPage = "about";

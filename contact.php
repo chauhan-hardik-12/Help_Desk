@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
-require_login('login.php');
 
 $pageTitle = "Contact Support - Student Help Desk";
 $currentPage = "contact";

@@ -19,6 +19,13 @@ if ($countResult) {
     }
 }
 
+// Fetch registered users count
+$totalUsers = 0;
+$userCountResult = $conn->query("SELECT COUNT(*) as user_cnt FROM users");
+if ($userCountResult) {
+    $totalUsers = (int)$userCountResult->fetch_assoc()['user_cnt'];
+}
+
 $pageTitle = "Admin Dashboard - Student Help Desk";
 $basePath = "../";
 $currentPage = "admin";
@@ -85,6 +92,10 @@ include __DIR__ . '/../includes/navbar.php';
         <div class="stat-card stat-resolved">
             <div class="stat-label">Resolved</div>
             <div class="stat-number"><?= $counts['resolved']; ?></div>
+        </div>
+        <div class="stat-card" style="border-left-color: #9b59b6;">
+            <div class="stat-label">Registered Users</div>
+            <div class="stat-number"><?= $totalUsers; ?></div>
         </div>
     </div>
 
